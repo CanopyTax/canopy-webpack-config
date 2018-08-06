@@ -1,9 +1,6 @@
 # canopy-webpack-config
 Some defaults for webpack configs at Canopy.
 
-## Motivation
-Keeping the webpack externals consistent across projects can be tricky. And maybe some other things.
-
 ## Goals
 - Ensure webpack externals for common dependencies are correct. This ensures smaller bundle sizes.
 - Provide some defaults for people implementing sofe services.
