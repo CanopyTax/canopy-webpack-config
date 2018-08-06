@@ -6,10 +6,9 @@
   "repository": "git@github.com:CanopyTax/canopy-webpack-config.git",
   "author": "Joel Denning <joel.denning@canopytax.com>",
   "license": "Apache-2.0",
-  "devDependencies": {
-    "clean-webpack-plugin": "^0.1.19"
-  },
+  "devDependencies": {},
   "dependencies": {
+    "clean-webpack-plugin": "^0.1.19",
     "webpack-merge": "^4.1.4"
   }
 }

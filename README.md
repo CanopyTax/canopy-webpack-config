@@ -44,3 +44,6 @@ module.exports = canopyWebpackConfig('login-ui', {
   The first argument is a string name for the library you are exporting. The second is a webpack config that will be merged with the defaults that
   canopy-webpack-config provides. The library will put the bundled files into the "build" directory. Note that this project assumes that you use
   babel-loader, but it does not install babel-loader. So you'll have to install it yourself, at whatever version you prefer.
+
+## Debugging
+To see your full webpack config, simply add a `console.log(module.exports)` inside of your webpack config.
