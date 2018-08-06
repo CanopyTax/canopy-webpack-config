@@ -1,0 +1,15 @@
+{
+  "name": "canopy-webpack-config",
+  "version": "1.0.0",
+  "description": "Some defaults for webpack configs at canopy",
+  "main": "src/canopy-webpack-config.js",
+  "repository": "git@github.com:CanopyTax/canopy-webpack-config.git",
+  "author": "Joel Denning <joel.denning@canopytax.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19"
+  },
+  "dependencies": {
+    "webpack-merge": "^4.1.4"
+  }
+}
