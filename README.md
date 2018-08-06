@@ -40,4 +40,4 @@ module.exports = canopyWebpackConfig('login-ui', {
 ## API
 - `canopyWebpackConfig(name, config)`: The default export of the canopy-webpack-config npm library. This function requires both of its arguments.
   The first argument is a string name for the library you are exporting. The second is a webpack config that will be merged with the defaults that
-  canopy-webpack-config provides.
+  canopy-webpack-config provides. The library will put the bundled files into the "build" directory.

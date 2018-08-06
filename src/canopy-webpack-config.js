@@ -18,7 +18,7 @@ module.exports = function(name, overridesConfig) {
       filename: `${name}.js`,
       library: name,
       libraryTarget: 'amd',
-      path: path.resolve(process.cwd(), 'sofe'),
+      path: path.resolve(process.cwd(), 'build'),
       chunkFilename: '[name].js',
     },
     mode: 'production',
@@ -38,7 +38,7 @@ module.exports = function(name, overridesConfig) {
       ],
     },
     plugins: [
-      new CleanWebpackPlugin(['sofe']),
+      new CleanWebpackPlugin(['build']),
     ],
     devtool: 'source-map',
     externals: [
