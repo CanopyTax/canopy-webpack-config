@@ -25,6 +25,8 @@ yarn add --dev canopy-webpack-config
 ```
 
 ```js
+// webpack.config.js
+
 const canopyWebpackConfig = require('canopy-webpack-config');
 
 module.exports = canopyWebpackConfig('login-ui', {
