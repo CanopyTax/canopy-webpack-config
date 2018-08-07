@@ -44,3 +44,8 @@ module.exports = canopyWebpackConfig('login-ui', {
 
 ## Debugging
 To see your full webpack config, simply add a `console.log(module.exports)` inside of your webpack config.
+
+## Limitations
+the webpack config for canopy-webpack-config will always create the output bundle in the directory that the webpack process was started in. This
+is different than how webpack configs normally work -- they usually create the output bundle in relation to the directory in which the webpack config
+file is placed.
