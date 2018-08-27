@@ -44,6 +44,9 @@ module.exports = function(name, overridesConfig) {
       },
       plugins: [
         new CleanWebpackPlugin(['build']),
+        new BundleAnalyzerPlugin({
+          analyzerMode: env.analyze || 'disabled',
+        })
       ],
       devtool: 'source-map',
       externals: [
@@ -66,16 +69,14 @@ module.exports = function(name, overridesConfig) {
       ],
     };
 
-    if (env.analyze) {
-      defaultCanopyConfig.plugins.push(
-        new BundleAnalyzerPlugin({
-          analyzerPort: 1212
-        })
-      )
-    }
-
     overridesConfig = typeof overridesConfig === 'function' ? overridesConfig(env) : overridesConfig
 
-    return merge.smart(defaultCanopyConfig, overridesConfig);
+    const finalConfig = merge.smart(defaultCanopyConfig, overridesConfig)
+
+    if (env.debug) {
+      console.log(finalConfig)
+    }
+
+    return finalConfig
   }
 }
