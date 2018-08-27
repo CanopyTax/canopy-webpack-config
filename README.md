@@ -41,7 +41,7 @@ Finally, create the following `scripts` in your package.json:
 ```json
 {
   "scripts": {
-    "build": "webpack --config webpack.config.js",
+    "build": "webpack --config webpack.config.js --analyze=static",
     "analyze": "webpack --config webpack.config.js --env.analyze",
     "start": "webpack-dev-server --config ./webpack.config.js --https --disable-host-check --cert ~/.canopy-ssl/public.pem --key ~/.canopy-ssl/key.pem --port"
   }
@@ -56,15 +56,15 @@ will start up a web server that is ready to go as a sofe override.
   The first argument is a string name for the library you are exporting. The second is a webpack config that will be merged with the defaults that
   canopy-webpack-config provides. The library will put the bundled files into the "build" directory. Note that this project assumes that you use
   babel-loader, but it does not install babel-loader. So you'll have to install it yourself, at whatever version you prefer.
-- `--env.analyze`: An option you can specify when invoking the webpack cli. For example: `webpack --config webpack.config.js --env.analyze`. This will open
+- `--env.analyze=server|static|disabled`: An option you can specify when invoking the webpack cli. For example: `webpack --config webpack.config.js --env.analyze`. This will open
   a bundle analyzer that lets you see the byte size of all your code splits and bundles. And the breakdown of what libraries and files are big and causing the
-  byte size to be large.
+  byte size to be large. See [webpack-bundle-analyzer](https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin) for more details.
 - `--env.dev`: An option you can specify when invoking the webpack cli. For example: `webpack --config webpack.config.js --env.dev`. This will force the webpack
   build to be done in development mode. Note that this is unnecessary for webpack-dev-server, which already forces the config to be in development mode without you
   needing to do anything.
 
 ## Debugging
-To see your full webpack config, simply add a `console.log(module.exports)` inside of your webpack config.
+To see your full webpack config, simply add a `--env.debug` to your webpack cli command.
 
 ## Features and assumptions
 canopy-webpack-config assumes a few things about your project and provides defaults for those things:
