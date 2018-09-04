@@ -41,7 +41,7 @@ Finally, create the following `scripts` in your package.json:
 ```json
 {
   "scripts": {
-    "build": "webpack --config webpack.config.js --analyze=static",
+    "build": "webpack --config webpack.config.js --env.analyze=static",
     "analyze": "webpack --config webpack.config.js --env.analyze=server",
     "start": "webpack-dev-server --config ./webpack.config.js --https --disable-host-check --cert ~/.canopy-ssl/public.pem --key ~/.canopy-ssl/key.pem --port"
   }
