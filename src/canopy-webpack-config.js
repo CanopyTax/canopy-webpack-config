@@ -3,6 +3,12 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const merge = require('webpack-merge')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
+let isDevServer = false
+
+if (process.argv.some(arg => arg.includes('webpack-dev-server'))) {
+  isDevServer = true
+}
+
 module.exports = function(name, overridesConfig) {
   if (typeof name !== 'string') {
     throw new Error('canopy-webpack-config expects a string name as the first argument')
@@ -26,7 +32,7 @@ module.exports = function(name, overridesConfig) {
         path: path.resolve(process.cwd(), 'build'),
         chunkFilename: '[name].js',
       },
-      mode: env.dev ? 'development' : 'production',
+      mode: env.dev || isDevServer ? 'development' : 'production',
       module: {
         rules: [
           {
