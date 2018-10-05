@@ -9,7 +9,8 @@
   "devDependencies": {},
   "dependencies": {
     "clean-webpack-plugin": "^0.1.19",
-    "webpack-bundle-analyzer": "^2.13.1",
+    "unused-files-webpack-plugin": "^3.4.0",
+    "webpack-bundle-analyzer": "^3.0.2",
     "webpack-merge": "^4.1.4"
   }
 }
