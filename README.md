@@ -30,6 +30,7 @@ module.exports = canopyWebpackConfig('login-ui', {
   // Override or add anything you want to your webpack config
   module: {
     rules: [
+      // e.g. apply a css loader if using css-modules
       { loader: 'css-loader' },
     ],
   },
