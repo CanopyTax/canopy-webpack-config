@@ -70,7 +70,6 @@ module.exports = function(name, overridesConfig) {
       externals: [
         /^.+!sofe$/,
         /^lodash$/,
-        /^rxws$/,
         /^moment$/,
         /^react$/,
         /^react\/lib.*/,
@@ -78,7 +77,6 @@ module.exports = function(name, overridesConfig) {
         /.*react-dom.*/,
         /^rx$/,
         /^rxjs\/?.*$/,
-        /^rxws$/,
         /^sofe$/,
         /^single-spa$/,
         /^single-spa-canopy$/,
