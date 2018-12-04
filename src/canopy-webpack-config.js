@@ -41,6 +41,12 @@ module.exports = function(name, overridesConfig) {
             exclude: [path.resolve(process.cwd(), 'node_modules')],
             loader: 'babel-loader',
           },
+          // https://github.com/systemjs/systemjs#compatibility-with-webpack
+          {
+            parser: {
+              system: false,
+            },
+          },
         ],
       },
       resolve: {
