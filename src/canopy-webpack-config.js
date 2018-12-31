@@ -40,6 +40,12 @@ module.exports = function(name, overridesConfig) {
             test: /\.js?$/,
             exclude: [path.resolve(process.cwd(), 'node_modules')],
             loader: 'babel-loader',
+            options: {
+              plugins: [
+                // https://github.com/babel/babel-loader#babel-is-injecting-helpers-into-each-file-and-bloating-my-code
+                "@babel/plugin-transform-runtime",
+              ],
+            },
           },
           // https://github.com/systemjs/systemjs#compatibility-with-webpack
           {

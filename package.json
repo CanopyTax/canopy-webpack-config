@@ -8,9 +8,11 @@
   "license": "Apache-2.0",
   "devDependencies": {},
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/runtime": "^7.2.0",
     "clean-webpack-plugin": "^1.0.0",
     "unused-files-webpack-plugin": "^3.4.0",
     "webpack-bundle-analyzer": "^3.0.3",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.5"
   }
 }
