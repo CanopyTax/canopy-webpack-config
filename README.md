@@ -15,7 +15,7 @@ Some defaults for webpack configs at Canopy.
 ## Usage
 First, install the library as a devDependency.
 ```bash
-yarn add --dev canopy-webpack-config
+yarn add --dev canopy-webpack-config @babel/runtime @babel/plugin-transform-runtime
 ```
 
 Now create a webpack.config.js file. This file will use canopy-webpack-config and allow you to override anything you want to about the defaults. Inside of the
