@@ -1,6 +1,6 @@
 {
   "name": "canopy-webpack-config",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Some defaults for webpack configs at canopy",
   "main": "src/canopy-webpack-config.js",
   "repository": "git@github.com:CanopyTax/canopy-webpack-config.git",
@@ -12,9 +12,9 @@
     "@babel/runtime": ">=7"
   },
   "dependencies": {
-    "clean-webpack-plugin": "^1.0.0",
+    "clean-webpack-plugin": "^2.0.0",
     "unused-files-webpack-plugin": "^3.4.0",
-    "webpack-bundle-analyzer": "^3.0.3",
-    "webpack-merge": "^4.1.5"
+    "webpack-bundle-analyzer": "^3.1.0",
+    "webpack-merge": "^4.2.1"
   }
 }

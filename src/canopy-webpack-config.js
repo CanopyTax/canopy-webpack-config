@@ -62,7 +62,7 @@ module.exports = function(name, overridesConfig) {
         ],
       },
       plugins: [
-        new CleanWebpackPlugin(['build']),
+        new CleanWebpackPlugin(),
         new BundleAnalyzerPlugin({
           analyzerMode: env.analyze || 'disabled',
         }),
