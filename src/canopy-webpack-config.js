@@ -94,6 +94,7 @@ module.exports = function(name, overridesConfig) {
         /^single-spa-canopy$/,
         /^prop-types$/,
         /^canopy-sofe-extensions$/,
+        /^online-listener$/,
       ],
     };
 
