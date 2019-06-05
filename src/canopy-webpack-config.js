@@ -1,5 +1,5 @@
 const path = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const merge = require('webpack-merge')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const {UnusedFilesWebpackPlugin} = require('unused-files-webpack-plugin')
@@ -62,7 +62,7 @@ module.exports = function(name, overridesConfig) {
         ],
       },
       plugins: [
-        new CleanWebpackPlugin(),
+        new CleanWebpackPlugin({ verbose: isDevServer, }),
         new BundleAnalyzerPlugin({
           analyzerMode: env.analyze || 'disabled',
         }),
@@ -81,20 +81,20 @@ module.exports = function(name, overridesConfig) {
       devtool: 'source-map',
       externals: [
         /^.+!sofe$/,
+        /^canopy-sofe-extensions$/,
         /^lodash$/,
         /^moment$/,
-        /^react$/,
-        /^react\/lib.*/,
+        /^online-listener$/,
+        /^prop-types$/,
         /^react-dom$/,
         /.*react-dom.*/,
+        /^react\/lib.*/,
+        /^react$/,
         /^rx$/,
         /^rxjs\/?.*$/,
-        /^sofe$/,
-        /^single-spa$/,
         /^single-spa-canopy$/,
-        /^prop-types$/,
-        /^canopy-sofe-extensions$/,
-        /^online-listener$/,
+        /^single-spa$/,
+        /^sofe$/,
       ],
     };
 
