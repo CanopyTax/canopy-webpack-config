@@ -95,6 +95,7 @@ module.exports = function(name, overridesConfig) {
         /^single-spa-canopy$/,
         /^single-spa$/,
         /^sofe$/,
+        /^cp-analytics$/,
       ],
     };
 
