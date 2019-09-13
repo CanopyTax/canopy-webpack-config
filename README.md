@@ -49,7 +49,7 @@ Finally, create the following `scripts` in your package.json:
 }
 ```
 
-You'll need to add SSL certificates to `~/.canopy-ssl/`, or define your own directory by changing the start script above to `webpack-dev-server --cert {location} --key {location} --port`
+You'll need to add SSL certificates to `~/.canopy-ssl/`, or define your own by changing the start script above to `webpack-dev-server --cert {location} --key {location} --port`
 
 Now add `yarn build` to your `.gitlab-ci.yml` file for the build step. You can run `yarn analyze` at any time to see your bundle size and breakdown. And `yarn start`
 will start up a web server that is ready to go as a sofe override.
