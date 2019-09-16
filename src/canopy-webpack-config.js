@@ -3,6 +3,8 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const merge = require('webpack-merge')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const {UnusedFilesWebpackPlugin} = require('unused-files-webpack-plugin')
+const fs = require("fs")
+const homedir = require("os").homedir()
 
 let isDevServer = false
 
