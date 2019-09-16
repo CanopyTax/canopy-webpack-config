@@ -10,6 +10,12 @@ if (process.argv.some(arg => arg.includes('webpack-dev-server'))) {
   isDevServer = true
 }
 
+const hostIndex = process.argv.findIndex(arg => arg === "--host")
+const host = hostIndex >= 0 && process.argv[hostIndex + 1] ? process.argv[hostIndex + 1] : "0.0.0.0"
+
+const portIndex = process.argv.findIndex(arg => arg === "--port")
+const port = portIndex >= 0 && process.argv[portIndex + 1] ? process.argv[portIndex + 1] : "8080"
+
 module.exports = function(name, overridesConfig) {
   if (typeof name !== 'string') {
     throw new Error('canopy-webpack-config expects a string name as the first argument')
@@ -97,6 +103,16 @@ module.exports = function(name, overridesConfig) {
         /^sofe$/,
         /^cp-analytics$/,
       ],
+      devServer: {
+        host: host,
+        https: {
+          cert: fs.readFileSync(`${homedir}/.canopy-ssl/public.pem`),
+          key: fs.readFileSync(`${homedir}/.canopy-ssl/key.pem`)
+        },
+        disableHostCheck: true,
+        sockHost: host,
+        sockPort: port,
+      }
     };
 
     overridesConfig = typeof overridesConfig === 'function' ? overridesConfig(env) : overridesConfig

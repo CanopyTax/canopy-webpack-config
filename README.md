@@ -44,10 +44,12 @@ Finally, create the following `scripts` in your package.json:
   "scripts": {
     "build": "webpack --config webpack.config.js --env.analyze=static",
     "analyze": "webpack --config webpack.config.js --env.analyze=server",
-    "start": "webpack-dev-server --config ./webpack.config.js --https --disable-host-check --cert ~/.canopy-ssl/public.pem --key ~/.canopy-ssl/key.pem --port"
+    "start": "webpack-dev-server --port"
   }
 }
 ```
+
+You'll need to add SSL certificates to `~/.canopy-ssl/`, or define your own by changing the start script above to `webpack-dev-server --cert {location} --key {location} --port`
 
 Now add `yarn build` to your `.gitlab-ci.yml` file for the build step. You can run `yarn analyze` at any time to see your bundle size and breakdown. And `yarn start`
 will start up a web server that is ready to go as a sofe override.
@@ -73,6 +75,7 @@ canopy-webpack-config assumes a few things about your project and provides defau
 - It compiles your library to AMD format
 - It compiles your code into the `build` directory relative to where you started the webpack process.
 - It excludes all [common dependencies](git@code.canopy.ninja:front-end/gold/common-dependencies.git) from the build.
+- Requires webpack-dev-server >= 3.4.0
 
 ## Limitations
 the webpack config for canopy-webpack-config will always create the output bundle in the directory that the webpack process was started in. This
