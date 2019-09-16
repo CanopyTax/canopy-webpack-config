@@ -112,7 +112,7 @@ module.exports = function(name, overridesConfig) {
           key: fs.readFileSync(`${homedir}/.canopy-ssl/key.pem`)
         },
         disableHostCheck: true,
-        sockHost: host,
+        sockHost: host === "0.0.0.0" ? "localhost" : host, // Use localhost for the socket connection for CSP purposes
         sockPort: port,
       } : {}
     };
