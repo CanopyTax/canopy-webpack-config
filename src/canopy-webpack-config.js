@@ -105,7 +105,7 @@ module.exports = function(name, overridesConfig) {
         /^sofe$/,
         /^cp-analytics$/,
       ],
-      devServer: {
+      devServer: isDevServer ? {
         host: host,
         https: {
           cert: fs.readFileSync(`${homedir}/.canopy-ssl/public.pem`),
@@ -114,7 +114,7 @@ module.exports = function(name, overridesConfig) {
         disableHostCheck: true,
         sockHost: host,
         sockPort: port,
-      }
+      } : {}
     };
 
     overridesConfig = typeof overridesConfig === 'function' ? overridesConfig(env) : overridesConfig
