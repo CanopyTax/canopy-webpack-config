@@ -1,6 +1,6 @@
 {
   "name": "canopy-webpack-config",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Some defaults for webpack configs at canopy",
   "main": "src/canopy-webpack-config.js",
   "repository": "git@github.com:CanopyTax/canopy-webpack-config.git",
