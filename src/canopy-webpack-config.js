@@ -114,6 +114,9 @@ module.exports = function(name, overridesConfig) {
         disableHostCheck: true,
         sockHost: host === "0.0.0.0" ? "localhost" : host, // Use localhost for the socket connection for CSP purposes
         sockPort: port,
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
       } : {}
     };
 
