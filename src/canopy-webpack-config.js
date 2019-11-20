@@ -36,7 +36,7 @@ module.exports = function(name, overridesConfig) {
       entry: `./src/${name}.js`,
       output: {
         filename: `${name}.js`,
-        library: name,
+        jsonpFunction: "wpjsonp-"+name,
         libraryTarget: 'amd',
         path: path.resolve(process.cwd(), 'build'),
         chunkFilename: '[name].js',
