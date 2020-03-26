@@ -82,6 +82,7 @@ module.exports = function(name, overridesConfig) {
               "**/*.spec.js",
               "**/*.js.snap",
               "**/test-setup.js",
+              "**/.stories.js"
             ],
           }
         }),
