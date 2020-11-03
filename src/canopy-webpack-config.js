@@ -93,6 +93,7 @@ module.exports = function(name, overridesConfig) {
         /^canopy-sofe-extensions$/,
         /^lodash$/,
         /^moment$/,
+        /^luxon$/,
         /^online-listener$/,
         /^prop-types$/,
         /^react-dom$/,
