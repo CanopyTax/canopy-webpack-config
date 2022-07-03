@@ -2,13 +2,12 @@ const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const merge = require('webpack-merge')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const {UnusedFilesWebpackPlugin} = require('unused-files-webpack-plugin')
 const fs = require("fs")
 const homedir = require("os").homedir()
 
 let isDevServer = false
 
-if (process.argv.some(arg => arg.includes('webpack-dev-server'))) {
+if (process.argv.some(arg => arg.includes('serve'))) {
   isDevServer = true
 }
 
@@ -36,8 +35,11 @@ module.exports = function(name, overridesConfig) {
       entry: `./src/${name}.js`,
       output: {
         filename: `${name}.js`,
-        jsonpFunction: "wpjsonp-"+name,
-        libraryTarget: 'amd',
+        publicPath: '',
+        uniqueName: name,
+        library: {
+          type: 'amd',
+        },
         path: path.resolve(process.cwd(), 'build'),
         chunkFilename: '[name].js',
       },
@@ -55,12 +57,6 @@ module.exports = function(name, overridesConfig) {
               ],
             },
           },
-          // https://github.com/systemjs/systemjs#compatibility-with-webpack
-          {
-            parser: {
-              system: false,
-            },
-          },
         ],
       },
       resolve: {
@@ -73,18 +69,6 @@ module.exports = function(name, overridesConfig) {
         new CleanWebpackPlugin({ verbose: isDevServer, }),
         new BundleAnalyzerPlugin({
           analyzerMode: env.analyze || 'disabled',
-        }),
-        new UnusedFilesWebpackPlugin({
-          globOptions: {
-            cwd: path.resolve(process.cwd(), 'src'),
-            ignore: [
-              "**/*.test.js",
-              "**/*.spec.js",
-              "**/*.js.snap",
-              "**/test-setup.js",
-              "**/.stories.js"
-            ],
-          }
         }),
       ],
       devtool: 'source-map',
@@ -114,9 +98,13 @@ module.exports = function(name, overridesConfig) {
           cert: fs.readFileSync(`${homedir}/.canopy-ssl/public.pem`),
           key: fs.readFileSync(`${homedir}/.canopy-ssl/key.pem`)
         },
-        disableHostCheck: true,
-        sockHost: host === "0.0.0.0" ? "localhost" : host, // Use localhost for the socket connection for CSP purposes
-        sockPort: port,
+        allowedHosts: 'all',
+        client: {
+          webSocketURL: {
+            hostname: host === "0.0.0.0" ? "localhost" : host, // Use localhost for the socket connection for CSP purposes
+            port: port,
+          },
+        },
         headers: {
           "Access-Control-Allow-Origin": "*"
         },
