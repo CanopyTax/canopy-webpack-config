@@ -39,6 +39,7 @@ module.exports = function(name, overridesConfig) {
         uniqueName: name,
         library: {
           type: 'amd',
+          name: name,
         },
         path: path.resolve(process.cwd(), 'build'),
         chunkFilename: '[name].js',
