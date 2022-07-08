@@ -1,7 +1,6 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const { UnusedFilesWebpackPlugin } = require('unused-files-webpack-plugin');
 const merge = require('webpack-merge')
 const fs = require("fs")
 const homedir = require("os").homedir()
@@ -71,19 +70,6 @@ module.exports = function(name, overridesConfig) {
         new CleanWebpackPlugin({ verbose: isDevServer, }),
         new BundleAnalyzerPlugin({
           analyzerMode: env.analyze || 'disabled',
-        }),
-        new UnusedFilesWebpackPlugin({
-          globOptions: {
-            cwd: path.resolve(process.cwd(), 'src'),
-            ignore: [
-              '**/*.test.js',
-              '**/*.spec.js',
-              '**/*.js.snap',
-              '**/test-setup.js',
-              '**/*.stories.js',
-              '**/*.story.js',
-            ],
-          }
         }),
       ],
       devtool: 'source-map',
