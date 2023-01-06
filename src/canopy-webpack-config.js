@@ -95,9 +95,12 @@ module.exports = function(name, overridesConfig) {
       ],
       devServer: isDevServer ? {
         host: host,
-        https: {
-          cert: fs.readFileSync(`${homedir}/.canopy-ssl/public.pem`),
-          key: fs.readFileSync(`${homedir}/.canopy-ssl/key.pem`)
+        server: {
+          type: 'https',
+          options: {
+            cert: fs.readFileSync(`${homedir}/.canopy-ssl/public.pem`),
+            key: fs.readFileSync(`${homedir}/.canopy-ssl/key.pem`)
+          },
         },
         allowedHosts: 'all',
         client: {
