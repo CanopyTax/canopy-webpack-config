@@ -1,56 +1,71 @@
-const path = require('path')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const merge = require('webpack-merge')
-const fs = require("fs")
-const homedir = require("os").homedir()
+const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const merge = require("webpack-merge");
+const fs = require("fs");
+const homedir = require("os").homedir();
 
-let isDevServer = false
+let isDevServer = false;
 
-if (process.argv.some(arg => arg.includes('serve'))) {
-  isDevServer = true
+if (process.argv.some((arg) => arg.includes("serve"))) {
+  isDevServer = true;
 }
 
-const hostIndex = process.argv.findIndex(arg => arg === "--host")
-const host = hostIndex >= 0 && process.argv[hostIndex + 1] ? process.argv[hostIndex + 1] : "0.0.0.0"
+const hostIndex = process.argv.findIndex((arg) => arg === "--host");
+const host =
+  hostIndex >= 0 && process.argv[hostIndex + 1]
+    ? process.argv[hostIndex + 1]
+    : "0.0.0.0";
 
-const portIndex = process.argv.findIndex(arg => arg === "--port")
-const port = portIndex >= 0 && process.argv[portIndex + 1] ? process.argv[portIndex + 1] : "8080"
+const portIndex = process.argv.findIndex((arg) => arg === "--port");
+const port =
+  portIndex >= 0 && process.argv[portIndex + 1]
+    ? process.argv[portIndex + 1]
+    : "8080";
 
-module.exports = function(name, overridesConfig) {
-  if (typeof name !== 'string') {
-    throw new Error('canopy-webpack-config expects a string name as the first argument')
+module.exports = function (name, overridesConfig) {
+  if (typeof name !== "string") {
+    throw new Error(
+      "canopy-webpack-config expects a string name as the first argument"
+    );
   }
 
-  if (typeof overridesConfig !== 'object' && typeof overridesConfig !== 'function') {
-    throw new Error('canopy-webpack-config expects an object as a second argument to override the canopy defaults. Received ' + typeof overridesConfig)
+  if (
+    typeof overridesConfig !== "object" &&
+    typeof overridesConfig !== "function"
+  ) {
+    throw new Error(
+      "canopy-webpack-config expects an object as a second argument to override the canopy defaults. Received " +
+        typeof overridesConfig
+    );
   }
 
-  return function(env) {
+  return function (env) {
     if (!env) {
-      env = {}
+      env = {};
     }
 
     const defaultCanopyConfig = {
       entry: `./src/${name}.js`,
       output: {
         filename: `${name}.js`,
-        publicPath: '',
+        publicPath: "",
         uniqueName: name,
         library: {
-          type: 'amd',
+          type: "amd",
           name: name,
         },
-        path: path.resolve(process.cwd(), 'build'),
-        chunkFilename: '[name].js',
+        path: path.resolve(process.cwd(), "build"),
+        chunkFilename: "[name].js",
       },
-      mode: env.dev || isDevServer ? 'development' : 'production',
+      mode: env.dev || isDevServer ? "development" : "production",
       module: {
         rules: [
           {
-            test: /\.js?$/,
-            exclude: [path.resolve(process.cwd(), 'node_modules')],
-            loader: 'babel-loader',
+            test: /\.m?js$/,
+            exclude: [path.resolve(process.cwd(), "node_modules")],
+            loader: "babel-loader",
             options: {
               plugins: [
                 // https://github.com/babel/babel-loader#babel-is-injecting-helpers-into-each-file-and-bloating-my-code
@@ -61,18 +76,20 @@ module.exports = function(name, overridesConfig) {
         ],
       },
       resolve: {
-        modules: [
-          process.cwd(),
-          'node_modules',
-        ],
+        modules: [process.cwd(), "node_modules"],
+        fallback: {
+          url: require.resolve("url/"),
+          "react/jsx-runtime": "react/jsx-runtime.js",
+          "react/jsx-dev-runtime": "react/jsx-dev-runtime.js",
+        },
       },
       plugins: [
-        new CleanWebpackPlugin({ verbose: isDevServer, }),
+        new CleanWebpackPlugin({ verbose: isDevServer }),
         new BundleAnalyzerPlugin({
-          analyzerMode: env.analyze || 'disabled',
+          analyzerMode: env.analyze || "disabled",
         }),
       ],
-      devtool: 'source-map',
+      devtool: "source-map",
       externals: [
         /^.+!sofe$/,
         /^canopy-sofe-extensions$/,
@@ -93,36 +110,42 @@ module.exports = function(name, overridesConfig) {
         /^cp-analytics$/,
         /^react-hook-form$/,
       ],
-      devServer: isDevServer ? {
-        host: host,
-        server: {
-          type: 'https',
-          options: {
-            cert: fs.readFileSync(`${homedir}/.canopy-ssl/public.pem`),
-            key: fs.readFileSync(`${homedir}/.canopy-ssl/key.pem`)
-          },
-        },
-        allowedHosts: 'all',
-        client: {
-          webSocketURL: {
-            hostname: host === "0.0.0.0" ? "localhost" : host, // Use localhost for the socket connection for CSP purposes
-            port: port,
-          },
-        },
-        headers: {
-          "Access-Control-Allow-Origin": "*"
-        },
-      } : {}
+
+      devServer: isDevServer
+        ? {
+            host: host,
+            server: {
+              type: "https",
+              options: {
+                cert: fs.readFileSync(`${homedir}/.canopy-ssl/public.pem`),
+                key: fs.readFileSync(`${homedir}/.canopy-ssl/key.pem`),
+              },
+            },
+            allowedHosts: "all",
+            client: {
+              webSocketURL: {
+                hostname: host === "0.0.0.0" ? "localhost" : host, // Use localhost for the socket connection for CSP purposes
+                port: port,
+              },
+            },
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        : {},
     };
 
-    overridesConfig = typeof overridesConfig === 'function' ? overridesConfig(env) : overridesConfig
+    overridesConfig =
+      typeof overridesConfig === "function"
+        ? overridesConfig(env)
+        : overridesConfig;
 
-    const finalConfig = merge.smart(defaultCanopyConfig, overridesConfig)
+    const finalConfig = merge.smart(defaultCanopyConfig, overridesConfig);
 
     if (env.debug) {
-      console.log(finalConfig)
+      console.log(finalConfig);
     }
 
-    return finalConfig
-  }
-}
+    return finalConfig;
+  };
+};
