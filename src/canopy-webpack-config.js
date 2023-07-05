@@ -106,6 +106,7 @@ module.exports = function(name, overridesConfig) {
         /^single-spa$/,
         /^sofe$/,
         /^cp-analytics$/,
+        /^react-hook-form$/,
       ],
       devServer: isDevServer ? {
         host: host,
