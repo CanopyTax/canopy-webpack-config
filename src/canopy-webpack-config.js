@@ -24,7 +24,7 @@ const port =
     ? process.argv[portIndex + 1]
     : "8080";
 
-module.exports = function (name, overridesConfig) {
+module.exports = function (name, overridesConfig = {}, typescript) {
   if (typeof name !== "string") {
     throw new Error(
       "canopy-webpack-config expects a string name as the first argument"
@@ -47,7 +47,7 @@ module.exports = function (name, overridesConfig) {
     }
 
     const defaultCanopyConfig = {
-      entry: `./src/${name}.js`,
+      entry: `./src/${name}.${typescript ? "ts" : "js"}`,
       output: {
         filename: `${name}.js`,
         publicPath: "",
@@ -63,7 +63,7 @@ module.exports = function (name, overridesConfig) {
       module: {
         rules: [
           {
-            test: /\.m?js$/,
+            test: typescript ? /\.(tsx|ts|m?js)?$/ : /\.m?js$/,
             exclude: [path.resolve(process.cwd(), "node_modules")],
             loader: "babel-loader",
             options: {
@@ -76,6 +76,11 @@ module.exports = function (name, overridesConfig) {
         ],
       },
       resolve: {
+        ...(typescript
+          ? {
+              extensions: [".tsx", ".ts", ".js"],
+            }
+          : {}),
         modules: [process.cwd(), "node_modules"],
         fallback: {
           url: require.resolve("url/"),
