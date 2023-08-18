@@ -78,7 +78,7 @@ module.exports = function (name, overridesConfig = {}, typescript) {
       resolve: {
         ...(typescript
           ? {
-              extensions: [".tsx", ".ts", ".js"],
+              extensions: [".tsx", ".ts", ".js", ".mjs"],
             }
           : {}),
         modules: [process.cwd(), "node_modules"],
