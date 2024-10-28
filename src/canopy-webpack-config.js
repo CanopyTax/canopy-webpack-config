@@ -24,7 +24,8 @@ const port =
     ? process.argv[portIndex + 1]
     : "8080";
 
-module.exports = function (name, overridesConfig = {}, typescript) {
+module.exports = function (name, overridesConfig = {}, options = {}) {
+  const { typescript, externals } = options;
   if (typeof name !== "string") {
     throw new Error(
       "canopy-webpack-config expects a string name as the first argument"
@@ -47,9 +48,14 @@ module.exports = function (name, overridesConfig = {}, typescript) {
     }
 
     const defaultCanopyConfig = {
-      entry: `./src/${name}.${typescript ? "ts" : "js"}`,
+      entry: {
+        [name]: `./src/${name}.${typescript ? "ts" : "js"}`,
+        ...(externals && {
+          externals: `./src/externals.${typescript ? "ts" : "js"}`,
+        }),
+      },
       output: {
-        filename: `${name}.js`,
+        filename: (pathData) => `${pathData.chunk.name}.js`,
         publicPath: "",
         uniqueName: name,
         library: {
