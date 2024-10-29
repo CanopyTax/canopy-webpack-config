@@ -81,3 +81,17 @@ canopy-webpack-config assumes a few things about your project and provides defau
 the webpack config for canopy-webpack-config will always create the output bundle in the directory that the webpack process was started in. This
 is different than how webpack configs normally work -- they usually create the output bundle in relation to the directory in which the webpack config
 file is placed.
+
+## Optional modifiers
+We support a few config options for builds, including typescript and an externals submodule.
+```
+module.exports = canopyWebpackConfig('login-ui', {}, {
+  typescript: true,
+  externals: true
+})
+```
+### Typescript `<bool>`
+Pass an options object with `{typescript: true}` when your service uss typescript.
+
+### Externals `<bool>`
+Pass an options object with `{externals: true}` when you are looking to export a submodule from `/src/externals.{js|ts}`. This should be for exports that must be imported synchronously such as hooks or queries that do not have other internal dependencies (to avoid circular dependencies).
