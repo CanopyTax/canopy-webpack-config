@@ -119,6 +119,7 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
         /^single-spa-canopy$/,
         /^single-spa$/,
         /^sofe$/,
+        /^@canopytax\/[^\/]+$/,
         /^cp-analytics$/,
         /^react-hook-form$/,
       ],
