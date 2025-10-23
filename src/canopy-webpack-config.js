@@ -122,6 +122,7 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
         /^@canopytax\/[^\/]+$/,
         /^cp-analytics$/,
         /^react-hook-form$/,
+        /^react-router-dom-v6$/,
       ],
 
       devServer: isDevServer
