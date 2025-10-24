@@ -35,18 +35,15 @@ const externalPatterns = [
   /^react-dom\/server$/,
   /^react\/lib.*/,
   /^react$/,
-  /^react\/jsx-runtime$/,
   /^rx$/,
   /^rxjs\/?.*$/,
   /^single-spa-canopy$/,
-  /^single-spa-react$/,
   /^single-spa$/,
-  /^react-hook-form$/,
-  /^@datadog\/browser-rum$/,
-  /^cp-client-auth$/,
   /^sofe$/,
+  /^@canopytax\/[^\/]+$/,
   /^cp-analytics$/,
-  /^@canopytax\/.+$/,
+  /^react-hook-form$/,
+  /^react-router-dom-v6$/,
 ];
 
 export default function (name, overridesConfig = {}, options = {}) {
@@ -54,7 +51,7 @@ export default function (name, overridesConfig = {}, options = {}) {
 
   if (typeof name !== "string") {
     throw new Error(
-      "canopy-webpack-config-esm expects a string name as the first argument"
+      "canopy-webpack-config-esm expects a string name as the first argument",
     );
   }
   if (
@@ -63,7 +60,7 @@ export default function (name, overridesConfig = {}, options = {}) {
   ) {
     throw new Error(
       "canopy-webpack-config-esm expects an object as overrides. Received " +
-        typeof overridesConfig
+        typeof overridesConfig,
     );
   }
 
