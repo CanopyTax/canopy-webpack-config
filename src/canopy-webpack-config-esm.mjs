@@ -24,7 +24,6 @@ const port =
 
 // --- Externals matching helpers ---
 const externalPatterns = [
-  /^canopy-sofe-extensions$/,
   /^lodash$/,
   /^moment$/,
   /^luxon$/,
@@ -35,13 +34,10 @@ const externalPatterns = [
   /^react-dom\/server$/,
   /^react\/lib.*/,
   /^react$/,
-  /^rx$/,
   /^rxjs\/?.*$/,
   /^single-spa-canopy$/,
   /^single-spa$/,
-  /^sofe$/,
   /^@canopytax\/[^\/]+$/,
-  /^cp-analytics$/,
   /^react-hook-form$/,
   /^react-router-dom-v6$/,
 ];
