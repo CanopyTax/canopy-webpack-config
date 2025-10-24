@@ -1,17 +1,20 @@
 {
   "name": "canopy-webpack-config",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "description": "Some defaults for webpack configs at canopy",
   "main": "src/canopy-webpack-config.js",
-  "repository": "git@github.com:CanopyTax/canopy-webpack-config.git",
-  "author": "Joel Denning <joel.denning@canopytax.com>",
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "prettier": "^2.8.8"
+  "exports": {
+    ".": "./src/canopy-webpack-config.js",
+    "./esm": "./src/canopy-webpack-config-esm.mjs"
   },
+  "repository": "git@github.com:CanopyTax/canopy-webpack-config.git",
+  "license": "Apache-2.0",
   "peerDependencies": {
     "@babel/plugin-transform-runtime": ">=7",
     "@babel/runtime": ">=7"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
   },
   "dependencies": {
     "clean-webpack-plugin": "^4.0.0",
@@ -19,5 +22,5 @@
     "webpack-bundle-analyzer": "^4.7.0",
     "webpack-merge": "^4.2.1"
   },
-  "packageManager": "yarn@3.6.2"
+  "packageManager": "yarn@4.10.3"
 }
