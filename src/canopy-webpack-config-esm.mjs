@@ -42,7 +42,7 @@ const externalPatterns = [
 ];
 
 export default function (name, overridesConfig = {}, options = {}) {
-  const { typescript, externals: hasExternals } = options;
+  const { externals: hasExternals } = options;
 
   if (typeof name !== "string") {
     throw new Error(
@@ -68,9 +68,9 @@ export default function (name, overridesConfig = {}, options = {}) {
       target: ["web", "es2020"],
 
       entry: {
-        [name]: `./src/${name}.${typescript ? "ts" : "js"}`,
+        [name]: `./src/${name}.ts`,
         ...(hasExternals && {
-          [`${name}-externals`]: `./src/externals.${typescript ? "ts" : "js"}`,
+          [`${name}-externals`]: `./src/externals.ts`,
         }),
       },
 
@@ -112,9 +112,7 @@ export default function (name, overridesConfig = {}, options = {}) {
 
       resolve: {
         fullySpecified: false,
-        extensions: typescript
-          ? [".tsx", ".ts", ".js", ".jsx", ".json"]
-          : [".js", ".jsx", ".json"],
+        extensions: [".tsx", ".ts", ".js", ".jsx", ".json"],
         modules: [process.cwd(), "node_modules"],
       },
 
@@ -132,7 +130,7 @@ export default function (name, overridesConfig = {}, options = {}) {
                     { targets: "defaults", modules: false },
                   ],
                   ["@babel/preset-react", { runtime: "automatic" }],
-                  ...(typescript ? [["@babel/preset-typescript"]] : []),
+                  "@babel/preset-typescript",
                 ],
                 plugins: ["@babel/plugin-transform-runtime"],
               },
