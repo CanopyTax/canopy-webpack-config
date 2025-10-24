@@ -27,7 +27,6 @@ const externalPatterns = [
   /^lodash$/,
   /^moment$/,
   /^luxon$/,
-  /^online-listener$/,
   /^prop-types$/,
   /^react-dom$/,
   /^react-dom\/client$/,
