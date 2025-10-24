@@ -1,6 +1,6 @@
 {
   "name": "canopy-webpack-config",
-  "version": "4.3.1",
+  "version": "4.3.2-alpha.0",
   "description": "Some defaults for webpack configs at canopy",
   "main": "src/canopy-webpack-config.js",
   "exports": {
