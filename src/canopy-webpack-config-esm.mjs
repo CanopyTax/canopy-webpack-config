@@ -25,7 +25,7 @@ const port =
 // --- Externals matching helpers ---
 const externalPatterns = [
   /^canopy-sofe-extensions$/,
-  /^lodash\/?.*$/,
+  /^lodash$/,
   /^moment$/,
   /^luxon$/,
   /^online-listener$/,
