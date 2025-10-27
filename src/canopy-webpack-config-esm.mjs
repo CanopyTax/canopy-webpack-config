@@ -82,7 +82,7 @@ export default function (name, overridesConfig = {}, options = {}) {
             : `${pathData.chunk.name}.js`,
         chunkFilename: "[name].js", // predictable ESM chunk names
         chunkLoading: "import", // load chunks via `import()`
-        path: path.resolve(process.cwd(), "build"),
+        path: path.resolve(process.cwd(), "build-esm"),
         publicPath: "auto", // resolve chunks relative to the loaded entry URL
         library: { type: "module" }, // emit as native ESM
         environment: { module: true },
