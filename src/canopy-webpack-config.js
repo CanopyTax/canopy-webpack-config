@@ -28,7 +28,7 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
   const { typescript, externals } = options;
   if (typeof name !== "string") {
     throw new Error(
-      "canopy-webpack-config expects a string name as the first argument"
+      "canopy-webpack-config expects a string name as the first argument",
     );
   }
 
@@ -38,7 +38,7 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
   ) {
     throw new Error(
       "canopy-webpack-config expects an object as a second argument to override the canopy defaults. Received " +
-        typeof overridesConfig
+        typeof overridesConfig,
     );
   }
 
@@ -119,7 +119,7 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
         /^single-spa-canopy$/,
         /^single-spa$/,
         /^sofe$/,
-        /^@canopytax\/[^\/]+$/,
+        /^@canopytax\//,
         /^cp-analytics$/,
         /^react-hook-form$/,
         /^react-router-dom-v6$/,
