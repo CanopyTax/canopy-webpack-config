@@ -36,7 +36,7 @@ const externalPatterns = [
   /^rxjs\/?.*$/,
   /^single-spa-canopy$/,
   /^single-spa$/,
-  /^@canopytax\/[^\/]+$/,
+  /^@canopytax\//,
   /^react-hook-form$/,
   /^react-router-dom-v6$/,
 ];
