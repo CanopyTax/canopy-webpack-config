@@ -153,6 +153,8 @@ export default function (name, overridesConfig = {}, options = {}) {
       ].filter(Boolean),
 
       devtool: "source-map",
+      devtoolNamespace: name,
+      devtoolModuleFilenameTemplate: "webpack:///[namespace]/[resource-path]",
 
       devServer: isDevServer
         ? {

@@ -101,6 +101,8 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
         }),
       ],
       devtool: "source-map",
+      devtoolNamespace: name,
+      devtoolModuleFilenameTemplate: "webpack:///[namespace]/[resource-path]",
       externals: [
         /^.+!sofe$/,
         /^canopy-sofe-extensions$/,
