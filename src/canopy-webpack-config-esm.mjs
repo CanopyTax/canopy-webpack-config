@@ -87,6 +87,8 @@ export default function (name, overridesConfig = {}, options = {}) {
         library: { type: "module" }, // emit as native ESM
         environment: { module: true },
         chunkFormat: "module",
+        devtoolNamespace: name,
+        devtoolModuleFilenameTemplate: "webpack://[namespace]/[resource-path]",
       },
 
       experiments: {

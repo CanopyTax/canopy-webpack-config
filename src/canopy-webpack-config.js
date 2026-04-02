@@ -64,6 +64,8 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
         },
         path: path.resolve(process.cwd(), "build"),
         chunkFilename: "[name].js",
+        devtoolNamespace: name,
+        devtoolModuleFilenameTemplate: "webpack://[namespace]/[resource-path]",
       },
       mode: env.dev || isDevServer ? "development" : "production",
       module: {
