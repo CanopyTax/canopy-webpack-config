@@ -34,6 +34,11 @@ const externalPatterns = [
   /^react\/lib.*/,
   /^react$/,
   /^rxjs\/?.*$/,
+  // Built out of the common-dependencies repo rather than npm. They keep their bare
+  // specifiers under ESM, same as under SystemJS, so consuming source needs no edit —
+  // online-listener in particular owns a singleton observable that must not be duplicated.
+  /^online-listener$/,
+  /^cp-analytics$/,
   /^single-spa-canopy$/,
   /^single-spa$/,
   /^@canopytax\//,
@@ -98,7 +103,6 @@ export default function (name, overridesConfig = {}, options = {}) {
       optimization: {
         runtimeChunk: false,
         splitChunks: { chunks: "async" },
-        minimize: false,
       },
 
       externalsType: "module",
@@ -123,20 +127,7 @@ export default function (name, overridesConfig = {}, options = {}) {
           {
             test: /\.(js|jsx|ts|tsx)$/,
             exclude: /node_modules/,
-            use: {
-              loader: "babel-loader",
-              options: {
-                presets: [
-                  [
-                    "@babel/preset-env",
-                    { targets: "defaults", modules: false },
-                  ],
-                  ["@babel/preset-react", { runtime: "automatic" }],
-                  "@babel/preset-typescript",
-                ],
-                plugins: ["@babel/plugin-transform-runtime"],
-              },
-            },
+            use: "babel-loader",
           },
         ],
       },
