@@ -3,7 +3,9 @@ import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import merge from "webpack-merge";
 import fs from "fs";
-import { homedir } from "os";
+import os from "os";
+
+const homedir = os.homedir();
 
 let isDevServer = false;
 if (process.argv.some((arg) => arg.includes("serve"))) {
@@ -151,23 +153,13 @@ export default function (name, overridesConfig = {}, options = {}) {
         ? {
             host,
             port,
-            server: (() => {
-              const sslPath = path.join(homedir(), ".canopy-ssl");
-              const keyPath = path.join(sslPath, "key.pem");
-              const certPath = path.join(sslPath, "public.pem");
-
-              if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
-                return {
-                  type: "https",
-                  options: {
-                    key: fs.readFileSync(keyPath),
-                    cert: fs.readFileSync(certPath),
-                    // http2: true, // optional
-                  },
-                };
-              }
-              return { type: "http" };
-            })(),
+            server: {
+              type: "https",
+              options: {
+                cert: fs.readFileSync(`${homedir}/.canopy-ssl/public.pem`),
+                key: fs.readFileSync(`${homedir}/.canopy-ssl/key.pem`),
+              },
+            },
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Methods":
@@ -178,8 +170,14 @@ export default function (name, overridesConfig = {}, options = {}) {
             },
             allowedHosts: "all",
             hot: false,
-            liveReload: false,
-            client: false,
+            liveReload: true,
+            client: {
+              webSocketURL: {
+                protocol: "wss",
+                hostname: host === "0.0.0.0" ? "localhost" : host, // Use localhost for the socket connection for CSP purposes
+                port,
+              },
+            },
           }
         : undefined,
     };
