@@ -4,6 +4,7 @@ import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import merge from "webpack-merge";
 import fs from "fs";
 import os from "os";
+import { tailwindSupport } from "./tailwind/index.js";
 
 const homedir = os.homedir();
 
@@ -49,7 +50,7 @@ const externalPatterns = [
 ];
 
 export default function (name, overridesConfig = {}, options = {}) {
-  const { externals: hasExternals } = options;
+  const { externals: hasExternals, tailwind } = options;
 
   if (typeof name !== "string") {
     throw new Error(
@@ -65,6 +66,12 @@ export default function (name, overridesConfig = {}, options = {}) {
         typeof overridesConfig,
     );
   }
+
+  const {
+    rules: tailwindRules,
+    plugins: tailwindPlugins,
+    alias: tailwindAlias,
+  } = tailwindSupport(tailwind);
 
   return function (env = {}) {
     const defaultCanopyConfig = {
@@ -122,6 +129,7 @@ export default function (name, overridesConfig = {}, options = {}) {
         fullySpecified: false,
         extensions: [".tsx", ".ts", ".js", ".jsx", ".json"],
         modules: [process.cwd(), "node_modules"],
+        alias: tailwindAlias,
       },
 
       module: {
@@ -131,6 +139,7 @@ export default function (name, overridesConfig = {}, options = {}) {
             exclude: /node_modules/,
             use: "babel-loader",
           },
+          ...tailwindRules,
         ],
       },
 
@@ -138,6 +147,7 @@ export default function (name, overridesConfig = {}, options = {}) {
         new CleanWebpackPlugin({
           cleanOnceBeforeBuildPatterns: ["**/*", "!.gitkeep"],
         }),
+        ...tailwindPlugins,
         env.analyze === "server" &&
           new BundleAnalyzerPlugin({ analyzerMode: "server" }),
         env.analyze === "static" &&
