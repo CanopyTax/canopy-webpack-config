@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin =
 const merge = require("webpack-merge");
 const fs = require("fs");
 const homedir = require("os").homedir();
+const { tailwindSupport } = require("./tailwind/index.js");
 
 let isDevServer = false;
 
@@ -25,7 +26,7 @@ const port =
     : "8080";
 
 module.exports = function (name, overridesConfig = {}, options = {}) {
-  const { typescript, externals } = options;
+  const { typescript, externals, tailwind } = options;
   if (typeof name !== "string") {
     throw new Error(
       "canopy-webpack-config expects a string name as the first argument",
@@ -41,6 +42,12 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
         typeof overridesConfig,
     );
   }
+
+  const {
+    rules: tailwindRules,
+    plugins: tailwindPlugins,
+    alias: tailwindAlias,
+  } = tailwindSupport(tailwind);
 
   return function (env) {
     if (!env) {
@@ -81,6 +88,7 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
               ],
             },
           },
+          ...tailwindRules,
         ],
       },
       resolve: {
@@ -90,6 +98,7 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
             }
           : {}),
         modules: [process.cwd(), "node_modules"],
+        alias: tailwindAlias,
         fallback: {
           url: require.resolve("url/"),
           "react/jsx-runtime": "react/jsx-runtime.js",
@@ -101,6 +110,7 @@ module.exports = function (name, overridesConfig = {}, options = {}) {
         new BundleAnalyzerPlugin({
           analyzerMode: env.analyze || "disabled",
         }),
+        ...tailwindPlugins,
       ],
       devtool: "source-map",
       externals: [

@@ -1,11 +1,12 @@
 {
   "name": "canopy-webpack-config",
-  "version": "4.4.5",
+  "version": "4.5.0",
   "description": "Some defaults for webpack configs at canopy",
   "main": "src/canopy-webpack-config.js",
   "exports": {
     ".": "./src/canopy-webpack-config.js",
-    "./esm": "./src/canopy-webpack-config-esm.mjs"
+    "./esm": "./src/canopy-webpack-config-esm.mjs",
+    "./tailwind.css": "./src/tailwind/base.css"
   },
   "repository": "git@github.com:CanopyTax/canopy-webpack-config.git",
   "license": "Apache-2.0",
@@ -17,7 +18,13 @@
     "prettier": "^3.6.2"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "4.3.3",
     "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^7.1.2",
+    "postcss": "^8.4.49",
+    "postcss-loader": "^8.1.1",
+    "style-loader": "^4.0.0",
+    "tailwindcss": "4.3.3",
     "url": "^0.11.0",
     "webpack-bundle-analyzer": "^4.7.0",
     "webpack-merge": "^4.2.1"

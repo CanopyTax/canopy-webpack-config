@@ -1,19 +1,24 @@
 # canopy-webpack-config
+
 Some defaults for webpack configs at Canopy.
 
 ## Goals
+
 - Ensure webpack externals for common dependencies are correct. This ensures smaller bundle sizes.
 - Provide some defaults for people implementing sofe services.
 - Still be 100% overrideable.
 
 ## Things we don't want
+
 - Hiding webpack configs at a level comparable to create-react-app or angular-cli. Nothing will need to be "ejected," you can always override anything you want.
 - Discouraging people from experimenting with their webpack config.
 - Discouraging people from knowing webpack.
 - Being overly opininated about how you do things like css (or other "autonomy" areas of building a sofe service).
 
 ## Usage
+
 First, install the library as a devDependency.
+
 ```bash
 yarn add --dev canopy-webpack-config @babel/runtime @babel/plugin-transform-runtime
 ```
@@ -24,17 +29,17 @@ file, call the `canopyWebpackConfig()` function to get some defaults and add/ove
 ```js
 // webpack.config.js
 
-const canopyWebpackConfig = require('canopy-webpack-config');
+const canopyWebpackConfig = require("canopy-webpack-config");
 
-module.exports = canopyWebpackConfig('login-ui', {
+module.exports = canopyWebpackConfig("login-ui", {
   // Override or add anything you want to your webpack config
   module: {
     rules: [
       // e.g. apply a css loader if using css-modules
-      { loader: 'css-loader' },
+      { loader: "css-loader" },
     ],
   },
-})
+});
 ```
 
 Finally, create the following `scripts` in your package.json:
@@ -55,6 +60,7 @@ Now add `yarn build` to your `.gitlab-ci.yml` file for the build step. You can r
 will start up a web server that is ready to go as a sofe override.
 
 ## API
+
 - `canopyWebpackConfig(name, config)`: The default export of the canopy-webpack-config npm library. This function requires both of its arguments.
   The first argument is a string name for the library you are exporting. The second is a webpack config that will be merged with the defaults that
   canopy-webpack-config provides. The library will put the bundled files into the "build" directory. Note that this project assumes that you use
@@ -67,10 +73,13 @@ will start up a web server that is ready to go as a sofe override.
   needing to do anything.
 
 ## Debugging
+
 To see your full webpack config, simply add a `--env.debug` to your webpack cli command.
 
 ## Features and assumptions
+
 canopy-webpack-config assumes a few things about your project and provides defaults for those things:
+
 - It automatically uses babel-loader to compile js files.
 - It compiles your library to AMD format
 - It compiles your code into the `build` directory relative to where you started the webpack process.
@@ -78,20 +87,49 @@ canopy-webpack-config assumes a few things about your project and provides defau
 - Requires webpack-dev-server >= 3.4.0
 
 ## Limitations
+
 the webpack config for canopy-webpack-config will always create the output bundle in the directory that the webpack process was started in. This
 is different than how webpack configs normally work -- they usually create the output bundle in relation to the directory in which the webpack config
 file is placed.
 
 ## Optional modifiers
+
 We support a few config options for builds, including typescript and an externals submodule.
+
 ```
 module.exports = canopyWebpackConfig('login-ui', {}, {
   typescript: true,
   externals: true
 })
 ```
+
 ### Typescript `<bool>`
+
 Pass an options object with `{typescript: true}` when your service uss typescript.
 
 ### Externals `<bool>`
+
 Pass an options object with `{externals: true}` when you are looking to export a submodule from `/src/externals.{js|ts}`. This should be for exports that must be imported synchronously such as hooks or queries that do not have other internal dependencies (to avoid circular dependencies).
+
+### Tailwind `<object>`
+
+Pass `{ tailwind: { prefix: '<service_prefix>' } }` and import the stylesheet in your app entry:
+
+Use https://github.com/CanopyTax/frontend-docs/wiki/Repo-abbreviations to get the correct prefix for the service.
+
+```js
+// webpack.config.js
+module.exports = canopyWebpackConfig(
+  "<service_name>",
+  {},
+  {
+    typescript: true,
+    tailwind: { prefix: "ru" },
+  },
+);
+```
+
+```js
+// src/<service_name>.ts
+import "canopy-webpack-config/tailwind.css";
+```

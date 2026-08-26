@@ -1,0 +1,18 @@
+/*
+ * The shared half of every Canopy app's Tailwind entry.
+ *
+ * canopy-webpack-config copies this file into a generated per-repo entry, underneath the
+ * two prefixed Tailwind `@import` lines (theme + utilities) that only the generator can write.
+ *
+ * Use only bare package specifiers here. The generated entry lives in the consuming repo's
+ * node_modules/.cache, and these imports resolve from there (e.g. @canopytax/understory).
+ */
+
+/* Shared Canopy design system tokens */
+@import "@canopytax/understory/tailwind/theme.css";
+
+/* 10px base font rem recalculation */
+@plugin "@canopytax/understory/tailwind/base-font-size";
+
+/* Dark mode variant (same selector as understory) */
+@custom-variant dark (&:is(:root.dark *, [data-mode="dark"] *));
